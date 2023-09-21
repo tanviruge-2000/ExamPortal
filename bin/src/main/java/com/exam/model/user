@@ -1,0 +1,16 @@
+package com.exam.model;
+
+public class User{
+    private Long id;
+    private String Username;
+    private string firstname;
+    private string lastname;
+    private string email;
+    private string phone;
+ private boolean enabled =true;
+
+
+
+
+
+}
