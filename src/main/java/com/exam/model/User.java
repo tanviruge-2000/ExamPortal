@@ -1,9 +1,61 @@
 package com.exam.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name="users")
 public class User{
+    @ Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private boolean enabled =true;
+    private String  profile;
+
+
+    //user many roles
+    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "user")
+    @JsonIgnore
+    private Set<UserRole> userRoles=new HashSet<>();
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public User() {
+
+    }
+
+    public User(Long id, String username, String firstname, String lastname, String email, String phone, boolean enabled, String profile) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.enabled = enabled;
+        this.profile = profile;
+    }
 
     public Long getId() {
         return id;
@@ -61,10 +113,7 @@ public class User{
         this.enabled = enabled;
     }
 
-    private String lastname;
-    private String email;
-    private String phone;
- private boolean enabled =true;
+
 
 //this is user jjjj
 
