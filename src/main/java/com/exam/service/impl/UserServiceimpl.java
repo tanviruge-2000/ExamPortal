@@ -5,14 +5,16 @@ import com.exam.model.UserRole;
 import com.exam.repo.RoleRepository;
 import com.exam.repo.UserRepository;
 import com.exam.service.UserService;
+import com.exam.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.util.Set;
 
 public class UserServiceimpl implements UserService {
 
     @Autowired
-    private UserRepository userReoository;
+    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -21,9 +23,9 @@ public class UserServiceimpl implements UserService {
     //creating user
 
     @Override
-    public User createUser(User user, Set<UserRole> userRole) throws Exception {
+    public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 
-        User local= this.userReoository.findByUserName(user.getUsername());
+        User local= this.userRepository.findByUserName(user.getUsername());
 
         if(local!=null)
         {
@@ -31,13 +33,14 @@ public class UserServiceimpl implements UserService {
             throw new Exception("User alrady present!!");
         }else {
             //user create
-            for (UserRole ur:userRole)
+            for (UserRole ur:userRoles)
             {
+
                 roleRepository.save(ur.getRole());
             }
 
-            user.getUserRoles().addAll((userRole));
-            local=this.userReoository.save(user);
+            user.getUserRoles().addAll((userRoles));
+            local=this.userRepository.save(user);
 
 
         }
