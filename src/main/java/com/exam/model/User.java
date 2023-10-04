@@ -113,6 +113,14 @@ public class User{
         this.enabled = enabled;
     }
 
+    public void setFirstName(String tanvi) {
+    }
+
+    public void setLastName(String ruge) {
+    }
+
+    public void setPassword(String abc) {
+    }
 
 
 //this is user jjjj

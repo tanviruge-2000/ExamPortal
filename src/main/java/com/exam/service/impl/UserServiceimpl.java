@@ -7,6 +7,7 @@ import com.exam.repo.UserRepository;
 import com.exam.service.UserService;
 import com.exam.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.Set;
@@ -22,15 +23,14 @@ public class UserServiceimpl implements UserService {
 
     //creating user
 
-    @Override
     public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 
-        User local= this.userRepository.findByUserName(user.getUsername());
+        User local= this.userRepository.findByUsername(user.getUsername());
 
         if(local!=null)
         {
-            System.out.println("User is allrady there!!");
-            throw new Exception("User alrady present!!");
+            System.out.println("User is allready there!!");
+            throw new Exception("User allready present!!");
         }else {
             //user create
             for (UserRole ur:userRoles)
@@ -39,7 +39,7 @@ public class UserServiceimpl implements UserService {
                 roleRepository.save(ur.getRole());
             }
 
-            user.getUserRoles().addAll((userRoles));
+            user.getUserRoles().addAll(userRoles);
             local=this.userRepository.save(user);
 
 
